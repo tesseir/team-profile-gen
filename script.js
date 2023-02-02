@@ -1,56 +1,11 @@
 const inquirer = require('inquirer')
 const fs = require("fs")
+const { join } = require('path')
 // const manager = require('./lib/manager')
 // const engineer = require('./lib/engineer')
 // const intern = require('./lib/intern')
 
-const genTeam = []
-
-const compileAll = () => {
-  const mgrs = data.filter((data) => data.position === "Manager").map((data) => compileManager(data) = () => {
-    return`
-      <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">${data.position}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">${data.name}</h6>
-        <p class="card-text">${data.email}</p>
-        <p class="card-text">Office Number: ${data.officeNumber}</p>
-        <p class="card-text">employee id: ${data.id}</p>
-        </div>
-    </div>`
-  })
-  console.log(compileManager)
-  const engs = data.filter((data) => data.type === "Engineer").map((data) => compileEngineer(data) = () => {
-    return`
-    <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">${data.position}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">${data.name}</h6>
-      <p class="card-text">${data.email}</p>
-      <a href="${data.github}" class="card-link">${data.github}</a>
-      <p class="card-text">employee id: ${data.id}</p>
-    </div>
-  </div>`
-  })
-  console.log(compileEngineer)
-  const ints = data.filter((data) => data.type === "Intern").map((data) => compileIntern(data) = () => {
-    return`
-      <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">${data.position}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">${data.name}</h6>
-        <p class="card-text">${data.email}</p>
-        <p class="card-text">${data.school}</p>
-        <p class="card-text">employee id: ${data.id}</p>
-      </div>
-    </div>`
-  })
-  console.log(compileIntern)
-
-  const output = [...compileManager, ...compileEngineer, ...compileIntern].join();
-  console.log(output);
-}
-
+let genTeam = []
 
 let basicTemp = [
   { type: "input", name: "name", message: "what is their name?" },
@@ -129,47 +84,46 @@ inquirer.prompt(basicTemp).then((data) => {
 
 function genHTML() {
 
-  // const compileAll = () => {
-  //   const mgrs = data.filter((data) => data.position === "Manager").map((data) => compileManager(data) = () => {
-  //     return`
-  //       <div class="card" style="width: 18rem;">
-  //       <div class="card-body">
-  //         <h5 class="card-title">${data.position}</h5>
-  //         <h6 class="card-subtitle mb-2 text-muted">${data.name}</h6>
-  //         <p class="card-text">${data.email}</p>
-  //         <p class="card-text">Office Number: ${data.officeNumber}</p>
-  //         <p class="card-text">employee id: ${data.id}</p>
-  //         </div>
-  //     </div>`
-  //   })
-  //   console.log(compileManager)
-  //   const engs = data.filter((data) => data.type === "Engineer").map((data) => compileEngineer(data) = () => {
-  //     return`
-  //     <div class="card" style="width: 18rem;">
-  //     <div class="card-body">
-  //       <h5 class="card-title">${data.position}</h5>
-  //       <h6 class="card-subtitle mb-2 text-muted">${data.name}</h6>
-  //       <p class="card-text">${data.email}</p>
-  //       <a href="${data.github}" class="card-link">${data.github}</a>
-  //       <p class="card-text">employee id: ${data.id}</p>
-  //     </div>
-  //   </div>`
-  //   })
-  //   console.log(compileEngineer)
-  //   const ints = data.filter((data) => data.type === "Intern").map((data) => compileIntern(data) = () => {
-  //     return`
-  //       <div class="card" style="width: 18rem;">
-  //       <div class="card-body">
-  //         <h5 class="card-title">${data.position}</h5>
-  //         <h6 class="card-subtitle mb-2 text-muted">${data.name}</h6>
-  //         <p class="card-text">${data.email}</p>
-  //         <p class="card-text">${data.school}</p>
-  //         <p class="card-text">employee id: ${data.id}</p>
-  //       </div>
-  //     </div>`
-  //   })
-  //   console.log(compileIntern)
-  // }
+  
+    const compileManager = genTeam.filter((data) => data.position === "Manager").map((data) => {
+      return`
+        <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">${data.position}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">${data.name}</h6>
+          <p class="card-text">${data.email}</p>
+          <p class="card-text">Office Number: ${data.officeNumber}</p>
+          <p class="card-text">employee id: ${data.id}</p>
+          </div>
+      </div>`
+    }).join("")
+    console.log(compileManager)
+    const compileEngineer = genTeam.filter((data) => data.position === "Engineer").map((data) => {
+      return`
+      <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">${data.position}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">${data.name}</h6>
+        <p class="card-text">${data.email}</p>
+        <a href="${data.github}" class="card-link">${data.github}</a>
+        <p class="card-text">employee id: ${data.id}</p>
+      </div>
+    </div>`
+    }).join("")
+    console.log(compileEngineer)
+    const compileIntern = genTeam.filter((data) => data.position === "Intern").map((data) => {
+      return`
+        <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">${data.position}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">${data.name}</h6>
+          <p class="card-text">${data.email}</p>
+          <p class="card-text">${data.school}</p>
+          <p class="card-text">employee id: ${data.id}</p>
+        </div>
+      </div>`
+    }).join("")
+    console.log(compileIntern)
 
 const finalstring = `
 <!DOCTYPE html>
@@ -199,7 +153,6 @@ const finalstring = `
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>`
-    compileAll()
     console.log(finalstring);
 
     fs.writeFile("Teamroster.html", finalstring, (err) =>
