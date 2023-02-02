@@ -13,7 +13,9 @@ let basicTemp = [
   { type: "input", name: "email", message: "What is their email?" },
 ]
 
-start()
+if (require.main === module) {
+  start();
+}
 function start(){
   basicTemp = [
     { type: "input", name: "name", message: "what is their name?" },
@@ -32,7 +34,7 @@ inquirer.prompt([
     console.log(choice)
     switch (choice.teamInit) {
       case "Add Manager":
-        addMananager()
+        addManager()
         break
       case "Add Engineer":
         addEngineer()
@@ -46,7 +48,7 @@ inquirer.prompt([
   }})
 }
 
-function addMananager() {
+function addManager() {
   basicTemp.push({
     type: "input",
     message: "What is their office number?",
@@ -156,5 +158,7 @@ const finalstring = `
     console.log(finalstring);
 
     fs.writeFile("Teamroster.html", finalstring, (err) =>
-      err ? console.log(err) : console.log('success'));
+      err ? console.log(err) : console.log('success'))
   };
+
+module.exports = {start, addManager, addEngineer, addIntern, genHTML, genTeam}
