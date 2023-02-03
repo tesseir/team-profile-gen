@@ -39,4 +39,11 @@ describe("Script tests",() =>{
     //   expect(script.genTeam.length).toBe(1)
       }) 
 
+      it("genHTML function test",() =>{
+        script.genTeam = []
+        script.start = () => {}
+        script.genHTML()
+        console.log(script)
+      //   expect(script.genTeam.length).toBe(1)
+        }) 
 }) 
